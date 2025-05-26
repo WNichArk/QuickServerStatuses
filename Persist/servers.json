@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Auth Server",
+    "status": "Online",
+    "description": "Handles user authentication and tokens.",
+    "message": "Running smoothly.",
+    "lastUpdate": "2024-05-25T14:12:00Z"
+  },
+  {
+    "name": "Database Cluster",
+    "status": "Maintenance",
+    "description": "Primary database services for core systems.",
+    "message": "Scheduled upgrade in progress.",
+    "lastUpdate": "2024-05-25T13:45:00Z"
+  },
+  {
+    "name": "API Gateway",
+    "status": "Offline",
+    "description": "Routing layer for external client traffic.",
+    "message": "Unexpected outage — investigating.",
+    "lastUpdate": "2024-05-25T13:59:00Z"
+  }
+]

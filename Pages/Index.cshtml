@@ -1,13 +1,140 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Status Page";
+    ViewData["Title"] = "Status Dashboard";
 }
 
-<h1>Statuses</h1>
-<ul>
-    @foreach (var status in Model.Statuses)
-{
-    <li><strong>@status.Key:</strong> @status.Value</li>
-}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #e6ffe6;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            box-shadow: 0 0 12px rgba(0, 255, 100, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #66ff66;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @@media (min-width: 640px) {
+            .card-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        .card {
+            background-color: #121212;
+            border: 1px solid #333;
+            border-left: 5px solid #00ff88;
+            padding: 1rem;
+            line-height: 1.5;
+        }
+
+            .card h2 {
+                font-size: 1.25rem;
+                margin: 0 0 0.25rem;
+                color: #00ff88;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+        .description {
+            font-size: 1rem;
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-line {
+            font-weight: bold;
+            font-size: 1.05rem;
+            color: #ffffff;
+        }
+
+        .status-online {
+            color: #00ff88;
+        }
+
+        .status-offline {
+            color: #ff5555;
+        }
+
+        .status-maintenance {
+            color: #ffaa00;
+        }
+
+        .no-status {
+            text-align: center;
+            color: #ff5555;
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="dashboard">
+        <h1 class="title">SERVER STATUS DASHBOARD</h1>
+
+        @if (Model.Statuses.Any())
+        {
+            <div class="card-grid">
+                @foreach (var status in Model.Statuses)
+                {
+                    <div class="card">
+                        <h2>@status.Name</h2>
+                        <p class="description">@status.Description</p>
+                        <div class="status-line">
+                            Status:
+                            <span class="@(
+                                status.Status.ToString().ToLower() switch
+                                {
+                                    "online" => "status-online",
+                                    "offline" => "status-offline",
+                                    "maintenance" => "status-maintenance",
+                                    "unknown" => "no-status",
+                                    _ => ""
+                                })">
+                                @status.Status
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="no-status">No statuses available.</p>
+        }
+    </section>
+</body>
+</html>

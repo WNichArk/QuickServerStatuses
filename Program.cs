@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using QuickServerStatuses.Models.Servers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ var app = builder.Build();
 
 var config = app.Services.GetRequiredService<IConfiguration>();
 var authOptions = config.GetSection("ApiAuth").Get<ApiAuthOptions>()!;
+
 
 // Basic Auth Middleware
 app.Use(async (context, next) =>
@@ -63,12 +65,11 @@ app.MapGet("/api/status", (StatusService service) =>
 
 app.MapPost("/api/status", async (HttpContext context, StatusService service) =>
 {
-    var data = await context.Request.ReadFromJsonAsync<Dictionary<string, string>>();
+    var data = await context.Request.ReadFromJsonAsync<Server>();
     if (data is null)
         return Results.BadRequest("Invalid JSON");
 
-    foreach (var kvp in data)
-        service.Set(kvp.Key, kvp.Value);
+    service.Set(data);
 
     return Results.Ok("Status updated.");
 });

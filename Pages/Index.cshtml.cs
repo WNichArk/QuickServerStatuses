@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using QuickServerStatuses.Models.Servers;
 using System.Collections.Generic;
 
 public class IndexModel : PageModel
 {
     private readonly StatusService _statusService;
 
-    public Dictionary<string, string> Statuses { get; set; } = new();
+    public List<Server> Statuses { get; set; } = new();
 
     public IndexModel(StatusService statusService)
     {
@@ -14,6 +15,6 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        Statuses = _statusService.GetAll().ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        Statuses = _statusService.GetAll();
     }
 }
