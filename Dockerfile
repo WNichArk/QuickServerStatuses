@@ -17,4 +17,4 @@ COPY --from=build /app/out .
 
 # Expose port 80 and start the app
 EXPOSE 80
-ENTRYPOINT ["dotnet", "QuickServerStatus.dll"]
+ENTRYPOINT ["dotnet", "QuickServerStatuses.dll"]
