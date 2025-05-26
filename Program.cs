@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using StatusWebApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
