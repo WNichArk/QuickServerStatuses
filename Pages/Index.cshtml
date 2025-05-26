@@ -1,0 +1,13 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Status Page";
+}
+
+<h1>Statuses</h1>
+<ul>
+    @foreach (var status in Model.Statuses)
+{
+    <li><strong>@status.Key:</strong> @status.Value</li>
+}
+</ul>
